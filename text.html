@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Birthday Note</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      position: relative;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      color: #F4C430;
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 2.5em;
+    }
+
+    .button-img {
+      margin-top: 10px;
+      width: 300px;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .button-img:hover {
+      transform: scale(1.1);
+    }
+
+    /* Floating images */
+    .floating-img {
+      position: absolute;
+      animation: float 2.5s ease-in-out infinite;
+    }
+    .float1 {
+      width: 100px;
+      top: 50px;
+      left: 350px;
+      animation-delay: 0s;
+    }
+    .float2 {
+      width: 70px;
+      top: 120px;
+      right: 350px;
+      animation-delay: 0.4s;
+    }
+    .float3 {
+      width: 120px;
+      top: 400px;
+      left: 300px;
+      animation-delay: 0.8s;
+    }
+    @keyframes float {
+      0%   { transform: translateY(0); }
+      50%  { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* Popup kertas */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+    .popup-content {
+      background: #fffdf5;
+      width: 70%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      font-size: 16px;
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+
+    /* khusus isi text user */
+    #popupBody {
+      font-family: "Times New Roman", Times, serif;
+      color: #FCC61D; /* kuning keemasan sedang */
+    }
+
+    .close-btn {
+      margin-top: 15px;
+      padding: 8px 15px;
+      background: #FFF799; /* kuning muda */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #fff; /* teks putih */
+    }
+  </style>
+</head>
+<body>
+
+  <div id="slide">
+    <!-- Floating images -->
+    <img src="starry.jpg" alt="float1" class="floating-img float1" />
+    <img src="una.jpg" alt="float2" class="floating-img float2" />
+    <img src="bunny.jpg" alt="float3" class="floating-img float3" />
+
+    <h1>生日快乐⋆.˚ ᡣ𐭩 .𖥔</h1>
+    <img src="start.png" alt="button" class="button-img" onclick="tampilkanTeks()" />
+  </div>
+
+  <!-- Popup -->
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <div id="popupBody"></div>
+      <button class="close-btn" onclick="tutupPopup()">Tutup</button>
+    </div>
+  </div>
+
+  <script>
+    const userText = 
+`Wednesday, 12 August 2025
+
+Happy late birthday, wish you all the best.
+
+Vel, kamu udah 15 tahun kan? Masa remajamu hampir habis, tapi masa sikap kamu sering kali masih childish?
+Jangan terlalu memaksakan kehendakmu ke orang lain ya, mungkin itu alasan ada beberapa orang yang ga suka sama kamu.
+sifat kamu yang egois itu juga kurangin ya. 
+Aku nggak menyalahkan kamu kok, sering kali memang aku juga yang salah, tapi coba kamu ingat-ingat lagi kalau selama ini sikapmu juga kadang bikin orang lain susah.
+kamu bakal kasih tau text ini ke mamimu kah? 
+tapi memang mami kamu yang ngatur sifat egois kamu?
+atur dirimu sendiri dulu coba vel.
+kalau kamu pikir aku penakut karena ga bisa ucapin ini langsung di depan kamu, ya memang benar.
+
+btw tugas aku sudah selesai kan buat website-nya?, nggak perlu nagih aku lagi kan?
+
+ramalkan masa depan mu dengan kartu tarot itu.
+
+sorry, kalo kamu kecewa sama isi website ini.
+tapi isi website ini memang diperuntukan buat kamu vel, jadi coba tafsirkan benar benar.
+and anyway, happy birthday.`
+
+    function typeWriter(targetElement, text, speed, callback) {
+      targetElement.textContent = "";
+      let idx = 0;
+      const interval = setInterval(() => {
+        targetElement.textContent += text[idx];
+        idx++;
+        if (idx >= text.length) {
+          clearInterval(interval);
+          if (callback) callback();
+        }
+      }, speed);
+    }
+
+    function tampilkanTeks() {
+      const popup = document.getElementById('popup');
+      const popupBody = document.getElementById('popupBody');
+      popup.style.display = 'flex';
+      typeWriter(popupBody, userText, 40);
+    }
+
+    function tutupPopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
